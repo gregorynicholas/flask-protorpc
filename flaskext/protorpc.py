@@ -2,7 +2,7 @@
   flaskext.protorpc
   ~~~~~~~~~~~~~~~~~
 
-  Protocol Buffers for RESTful interfaces..
+  Protocol Buffers for RESTful interfaces.
 
   :copyright: (c) 2012 by gregorynicholas.
   :license: MIT, see LICENSE for more details.
