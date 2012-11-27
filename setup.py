@@ -16,15 +16,22 @@ http://github.com/gregorynicholas/flask-protorpc
 from setuptools import setup
 
 setup(
-  name='flask_protorpc',
+  name='flask-protorpc',
   version='1.0.0',
   url='http://github.com/gregorynicholas/flask-protorpc',
   license='MIT',
   author='gregorynicholas',
   description='Protocol Buffers for RESTful interfaces.',
   long_description=__doc__,
-  packages=['flask_protorpc'],
-  namespace_packages=['flask_protorpc'],
+  packages=[
+    'flask_protorpc'
+  ],
+  namespace_packages=[
+    'flask_protorpc'
+  ],
+  py_modules=[
+    'flask_protorpc.proto',
+  ],
   zip_safe=False,
   platforms='any',
   install_requires=['flask', 'google-protorpc'],
