@@ -207,3 +207,19 @@ def parse_request_msg(message_type):
     logging.error(
       'Exception serializing the request data: Error: %s\nData:\n%s', e, _value)
     raise RequestDataError('Error parsing the request to rpc: "%s"', _value)
+
+
+from threading import RLock
+from werkzeug.utils import cached_property
+class cached(cached_property):
+  """A decorator that converts a function into a lazy property.
+
+  This class was ported from `Werkzeug`_ and adapted to provide threadsafety.
+  """
+  def __init__(self, *args, **kw):
+    cached_property.__init__(self, *args, **kw)
+    self.lock = RLock()
+
+  def __get__(self, *args, **kw):
+    with self.lock:
+      return cached_property.__get__(self, *args, **kw)
