@@ -1,9 +1,9 @@
-.. flask-protorpc documentation master file, created by
+.. flask_protorpc documentation master file, created by
    sphinx-quickstart on Tue Nov 27 00:58:12 2012.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to flask-protorpc's documentation!
+Welcome to flask_protorpc's documentation!
 ==========================================
 
 Contents:

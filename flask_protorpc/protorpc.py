@@ -1,5 +1,5 @@
 """
-  flaskext.protorpc
+  flask_protorpc
   ~~~~~~~~~~~~~~~~~
 
   Protocol Buffers for RESTful interfaces.

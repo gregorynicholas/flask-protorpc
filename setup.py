@@ -1,6 +1,6 @@
 #!/usr/bin/python
 """
-flask-protorpc
+flask_protorpc
 --------------
 
 Protocol Buffers for RESTful interfaces.
@@ -8,26 +8,26 @@ Protocol Buffers for RESTful interfaces.
 http://github.com/gregorynicholas/flask-protorpc
 `````
 
-* `documentation <http://packages.python.org/flask-protorpc>`_
+* `documentation <http://packages.python.org/flask_protorpc>`_
 * `development version
-  <http://github.com/gregorynicholas/flask-protorpc/zipball/master#egg=flask-protorpc-dev>`_
+  <http://github.com/gregorynicholas/flask-protorpc/zipball/master#egg=flask_protorpc-dev>`_
 
 """
 from setuptools import setup
 
 setup(
-  name='flask-protorpc',
+  name='flask_protorpc',
   version='1.0.0',
   url='http://github.com/gregorynicholas/flask-protorpc',
   license='MIT',
   author='gregorynicholas',
   description='Protocol Buffers for RESTful interfaces.',
   long_description=__doc__,
-  packages=['flaskext'],
-  namespace_packages=['flaskext'],
+  packages=['flask_protorpc'],
+  namespace_packages=['flask_protorpc'],
   zip_safe=False,
   platforms='any',
-  install_requires=['flask'],
+  install_requires=['flask', 'google-protorpc'],
   classifiers=[
     'Development Status :: 4 - Beta',
     'Environment :: Web Environment',
