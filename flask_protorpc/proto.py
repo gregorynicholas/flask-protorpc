@@ -119,12 +119,13 @@ def remote_request(response_msg=None):
     return decorated
   return wrapper
 
-def remote(request_msg=None, response_msg=None):
+def remote(request_msg=None, response_msg=None, payload=False):
   '''Method decorator wraps a view function and returns a serialized json
   message.
 
     :param request_msg: Protorpc `Message` class of the view's request object.
     :param response_msg: Protorpc `Message` class of the view's response object.
+    :param payload: Will attempt to parse the message from the request payload.
   '''
   def wrapper(remotemethod):
     @wraps(remotemethod)
@@ -135,7 +136,7 @@ def remote(request_msg=None, response_msg=None):
       reqmsg = None
       resmsg = None
       try:
-        reqmsg = _validate_msg(parse_request_msg(request_msg))
+        reqmsg = _validate_msg(parse_request_msg(request_msg, payload=payload))
       except Exception, e:
         resmsg = ResponseMessage(
           status=400,
@@ -170,7 +171,7 @@ def _validate_msg(msg):
       'Remote Method did not return a valid response message.')
   return msg
 
-def parse_request_msg(message_type):
+def parse_request_msg(message_type, payload=False):
   '''Parses the request parameters from either the querystring if the method
   is GET, or the request body if the method is POST..
 
@@ -186,8 +187,10 @@ def parse_request_msg(message_type):
     # parse request values from the querystring..
     _value = request.args.to_dict()
   elif request.method == 'POST':
+    if payload:
+      _value = request.form.get('payload')
     # parse request values from form variables..
-    if 'application/x-www-form-urlencoded' in request.content_type:
+    elif 'application/x-www-form-urlencoded' in request.content_type:
       # logging.error('parsing request from x-www-form-urlencoded.')
       _value = request.form.to_dict()
     elif 'application/json' in request.content_type:
