@@ -24,7 +24,6 @@ setup(
   description='Protocol Buffers for RESTful interfaces.',
   long_description=__doc__,
   packages=[
-    'flask_protorpc'
   ],
   namespace_packages=[
     'flask_protorpc'
