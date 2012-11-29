@@ -188,7 +188,7 @@ def parse_request_msg(message_type, payload=False):
     _value = request.args.to_dict()
   elif request.method == 'POST':
     if payload:
-      _value = request.form.to_dict()
+      _value = {'payload': loads(request.form.get('payload', '{}'))}
       # _value = loads('{"payload": ' + request.form.get('payload', ''))
     # parse request values from form variables..
     elif 'application/x-www-form-urlencoded' in request.content_type:
