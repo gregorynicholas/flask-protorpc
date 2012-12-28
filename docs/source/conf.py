@@ -228,7 +228,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   ('index', 'flask_protorpc', u'flask_protorpc Documentation',
-   u'gregorynicholas', 'flask_protorpc', 'Protocol Buffers for RESTful interfaces.',
+   u'gregorynicholas', 'flask_protorpc',
+   'An extremely thin Flask Extension to build RESTful clients.',
    'Miscellaneous'),
 ]
 

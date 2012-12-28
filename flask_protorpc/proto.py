@@ -2,7 +2,7 @@
   flask_protorpc
   ~~~~~~~~~~~~~~~~~
 
-  Protocol Buffers for RESTful interfaces.
+  An extremely thin Flask Extension to build RESTful clients.
 
   :copyright: (c) 2012 by gregorynicholas.
   :license: MIT, see LICENSE for more details.

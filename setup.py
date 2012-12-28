@@ -3,7 +3,7 @@
 flask_protorpc
 --------------
 
-Protocol Buffers for RESTful interfaces.
+An extremely thin Flask Extension to build RESTful clients.
 
 http://github.com/gregorynicholas/flask-protorpc
 `````
@@ -21,7 +21,7 @@ setup(
   url='http://github.com/gregorynicholas/flask-protorpc',
   license='MIT',
   author='gregorynicholas',
-  description='Protocol Buffers for RESTful interfaces.',
+  description='An extremely thin Flask Extension to build RESTful clients.',
   long_description=__doc__,
   packages=[
   ],
@@ -30,10 +30,17 @@ setup(
   ],
   py_modules=[
     'flask_protorpc.proto',
+    'flask_protorpc.testutils',
   ],
   zip_safe=False,
   platforms='any',
-  install_requires=['flask', 'google-protorpc'],
+  install_requires=[
+    'flask',
+    'google-protorpc'
+  ],
+  dependency_links = [
+    'https://github.com/gregorynicholas/google-protorpc/tarball/master',
+  ],
   classifiers=[
     'Development Status :: 4 - Beta',
     'Environment :: Web Environment',
