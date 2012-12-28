@@ -1,4 +1,4 @@
-# flask_protorpc
+# flask-protorpc
 --------------
 
 An extremely thin Flask Extension to build RESTful clients.
