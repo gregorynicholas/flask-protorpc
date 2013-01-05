@@ -1,6 +1,6 @@
 from json import loads
-from ..rpc import proto
-from ..api.rpc import RemoteResponse
+from flask_protorpc import proto
+from flask_protorpc import RemoteResponse
 from functools import wraps
 
 class RpcMixin:
@@ -13,14 +13,14 @@ class RpcMixin:
 
   def send_rpc(self, svc, path, data, **kw):
     '''
-    :param path: the path of the request.  In the WSGI environment this will
-                 end up as `PATH_INFO`.  If the `query_string` is not defined
-                 and there is a question mark in the `path` everything after
-                 it is used as query string.
-    :param base_url: the base URL is a URL that is used to extract the WSGI
-                     URL scheme, host (server name + server port) and the
-                     script root (`SCRIPT_NAME`).
-    :param query_string: an optional string or dict with URL parameters.
+      :param path:
+          the path of the request.  In the WSGI environment this will end up as
+          `PATH_INFO`.  If the `query_string` is not defined and there is a
+          question mark in the `path` everything after it is used as querystring.
+      :param base_url:
+          the base URL is a URL that is used to extract the WSGI URL scheme,
+          host (server name + server port) and the script root (`SCRIPT_NAME`).
+      :param query_string: an optional string or dict with URL parameters.
     '''
     svc.response_class = RemoteResponse
     response = svc.test_client().post(path=path, follow_redirects=True,

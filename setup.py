@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 """
 flask_protorpc
 --------------
 
-An extremely thin Flask Extension to build RESTful clients.
+An extremely thin Flask Extension to build remote clients.
 
 http://github.com/gregorynicholas/flask-protorpc
 `````
@@ -21,17 +21,15 @@ setup(
   url='http://github.com/gregorynicholas/flask-protorpc',
   license='MIT',
   author='gregorynicholas',
-  description='An extremely thin Flask Extension to build RESTful clients.',
+  description='An extremely thin Flask Extension to build remote clients.',
   long_description=__doc__,
-  packages=[
-  ],
-  namespace_packages=[
-    'flask_protorpc'
-  ],
   py_modules=[
-    'flask_protorpc.proto',
-    'flask_protorpc.testutils',
+    'flask_protorpc',
+    'flask_protorpc_tests',
+    'testutils',
   ],
+  # packages=['flaskext'],
+  # namespace_packages=['flaskext'],
   zip_safe=False,
   platforms='any',
   install_requires=[
@@ -41,6 +39,7 @@ setup(
   dependency_links = [
     'https://github.com/gregorynicholas/google-protorpc/tarball/master',
   ],
+  test_suite='flask_protorpc_tests',
   classifiers=[
     'Development Status :: 4 - Beta',
     'Environment :: Web Environment',

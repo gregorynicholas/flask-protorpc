@@ -2,7 +2,7 @@
   flask_protorpc
   ~~~~~~~~~~~~~~~~~
 
-  An extremely thin Flask Extension to build RESTful clients.
+  An extremely thin Flask Extension to build remote clients.
 
   :copyright: (c) 2012 by gregorynicholas.
   :license: MIT, see LICENSE for more details.
