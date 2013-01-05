@@ -1,4 +1,4 @@
-# flask_protorpc
+# flask-protorpc
 
 --------------
 
