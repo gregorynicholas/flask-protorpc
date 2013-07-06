@@ -1,8 +1,9 @@
 """
-  flask_protorpc
-  ~~~~~~~~~~~~~~~~~
+  flask.ext.protorpc
+  ~~~~~~~~~~~~~~~~~~
 
-  An extremely thin Flask Extension to build remote clients.
+  flask extension to ease building remote clients. with app engine + protorpc.
+
 
   :copyright: (c) 2012 by gregorynicholas.
   :license: MIT, see LICENSE for more details.
@@ -16,22 +17,30 @@ from protorpc import messages
 from protorpc import protojson
 from protorpc.message_types import VoidMessage
 
-__all__ = ['messages', 'message_to_json', 'message_to_json_str',
-'message_from_json', 'protojson', 'OPTIONS', 'VoidMessage',
-'RemoteResponse', 'remote', 'remote_request']
+
+__all__ = [
+  'remote', 'remote_request',
+  'message_to_json', 'message_to_json_str', 'message_from_json',
+  'VoidMessage', 'RemoteResponse',
+  'messages', 'protojson',
+]
 
 
 class RequestDataError(ValueError):
   pass
 
+
 class ResponseDataError(ValueError):
   pass
+
 
 class MimeTypeError(ValueError):
   pass
 
+
 class ContentTypeError(ValueError):
   pass
+
 
 class JsonValueError(ValueError):
   pass
@@ -46,6 +55,7 @@ def message_to_json(message):
     raise ValueError('Value must be an instance of messages.Message.')
   return protojson.encode_message(message)
 
+
 def message_to_dict(message):
   '''Returns an instance of an encoded json string.
 
@@ -55,6 +65,7 @@ def message_to_dict(message):
     raise ValueError('Value must be an instance of messages.Message.')
   return loads(protojson.encode_message(message))
 
+
 def message_to_json_str(message):
   '''
     :param message: Instance of a response protorpc `Message`.
@@ -62,6 +73,7 @@ def message_to_json_str(message):
   if not isinstance(message, messages.Message):
     raise ValueError('Value must be an instance of messages.Message.')
   return dumps(message_to_json(message))
+
 
 def message_from_json(message_type, value):
   '''Returns an instance of a protorpc `Message` class.
@@ -84,8 +96,11 @@ HEADERS = ['Accept', 'Content-Type', 'Origin', 'X-Requested-With']
 
 
 class RemoteResponse(Response):
-  '''Base class for remote service `Response` objects.'''
+  '''
+  base class for remote service `Response` objects
+  '''
   default_mimetype = MIMETYPE
+
   def __init__(self, response=None, mimetype=None, *args, **kw):
     if mimetype is None:
       mimetype = self.default_mimetype
@@ -104,10 +119,11 @@ class ResponseMessage(messages.Message):
 
 
 def remote_request(response_msg=None):
-  '''Method decorator wraps a function that returns a `dict`, and returns a
-  serialized response message.
+  '''
+  method decorator to wrap a method that acts as an api client.
 
-    :param response_msg: Protorpc `Message` class of the func's return object.
+    :param response_msg: `protorpc.Message` class type for the return object
+    :returns: serialized response object from json
   '''
   def wrapper(func):
     @wraps(func)
@@ -119,13 +135,15 @@ def remote_request(response_msg=None):
     return decorated
   return wrapper
 
-def remote(request_msg=None, response_msg=None, payload=False):
-  '''Method decorator wraps a view function and returns a serialized json
-  message.
 
-    :param request_msg: Protorpc `Message` class of the view's request object.
-    :param response_msg: Protorpc `Message` class of the view's response object.
-    :param payload: Will attempt to parse the message from the request payload.
+def remote(request_msg=None, response_msg=None, payload=False):
+  '''
+  method decorator to wrap a flask route handler.
+
+    :param request_msg: Protorpc `Message` class of the view's request object
+    :param response_msg: Protorpc `Message` class of the view's response object
+    :param payload: Will attempt to parse the message from the request payload
+    :returns: serialized json as an instance of the `response_msg` class
   '''
   def wrapper(remotemethod):
     @wraps(remotemethod)
@@ -136,7 +154,8 @@ def remote(request_msg=None, response_msg=None, payload=False):
       reqmsg = None
       resmsg = None
       try:
-        reqmsg = _validate_msg(parse_request_msg(request_msg, payload=payload))
+        reqmsg = _validate_msg(
+          _parse_request_msg(request_msg, payload=payload))
       except Exception, e:
         resmsg = ResponseMessage(
           status=400,
@@ -164,24 +183,22 @@ def remote(request_msg=None, response_msg=None, payload=False):
 
 def _validate_msg(msg):
   '''
-    :param msg: Instance of a response protorpc `Message`.
+    :param msg: instance of a response `protorpc.Message` object
   '''
   if not msg or not isinstance(msg, messages.Message):
     raise ResponseDataError(
       'Remote Method did not return a valid response message.')
   return msg
 
-def parse_request_msg(message_type, payload=False):
-  '''Parses the request parameters from either the querystring if the method
-  is GET, or the request body if the method is POST..
 
-    :param message_type: Protorpc `Message` class.
+def _parse_request_msg(message_type, payload=False):
   '''
-  # def _validate_request():
-  #   if MIMETYPE not in request.accept_mimetypes:
-  #     raise MimeTypeError(
-  #       'Request did not accept json mimetype: %s' % (request.accept_mimetypes))
-  # _validate_request()
+  parses the request parameters from either the querystring if the method
+  is GET, or the request body if the method is POST.
+
+    :param message_type: class type of `protorpc.Message`
+    :param payload:
+  '''
   _value = None
   if request.method == 'GET':
     # parse request values from the querystring..
@@ -209,16 +226,19 @@ def parse_request_msg(message_type, payload=False):
       request.method, e.message, request.url))
   except (AttributeError, ValueError), e:
     logging.error(
-      'Exception serializing the request data: Error: %s\nData:\n%s', e, _value)
+      'Exception serializing request data: error: %s\ndata:\n%s', e, _value)
     raise RequestDataError('Error parsing the request to rpc: "%s"', _value)
 
 
 from threading import RLock
 from werkzeug.utils import cached_property
-class cached(cached_property):
-  """A decorator that converts a function into a lazy property.
 
-  This class was ported from `Werkzeug`_ and adapted to provide threadsafety.
+
+class cached(cached_property):
+  """
+  decorator that converts a function into a lazy property.
+
+  this class was ported from `Werkzeug`_ and adapted to provide threadsafety.
   """
   def __init__(self, *args, **kw):
     cached_property.__init__(self, *args, **kw)
