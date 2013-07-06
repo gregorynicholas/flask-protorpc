@@ -1,10 +1,21 @@
-# flask-protorpc
+flask-protorpc
+==============
 
---------------
+flask extension to ease building remote clients with app engine + protorpc.
 
-An extremely thin Flask Extension to build remote clients.
 
 ----
 
-### install with pip
-`pip install https://github.com/gregorynicholas/flask-protorpc/tarball/master`
+### links
+
+* [docs](http://gregorynicholas.github.io/flask-protorpc)
+* [source](http://github.com/gregorynicholas/flask-protorpc)
+* [package](http://packages.python.org/flask-protorpc)
+* [development version](http://github.com/gregorynicholas/flask-protorpc/zipball/master#egg=flask_protorpc-dev)
+
+
+----
+
+### install
+
+    `pip install flask-protorpc`

@@ -2,7 +2,7 @@
   flask.ext.protorpc
   ~~~~~~~~~~~~~~~~~~
 
-  flask extension to ease building remote clients. with app engine + protorpc.
+  flask extension to ease building remote clients with app engine + protorpc.
 
 
   :copyright: (c) 2012 by gregorynicholas.

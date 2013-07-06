@@ -5,15 +5,17 @@ flask_protorpc
 
 An extremely thin Flask Extension to build remote clients.
 
-http://github.com/gregorynicholas/flask-protorpc
 `````
-
-* `documentation <http://packages.python.org/flask_protorpc>`_
-* `development version
-  <http://github.com/gregorynicholas/flask-protorpc/zipball/master#egg=flask_protorpc-dev>`_
 
 """
 from setuptools import setup
+
+with open("requirements.txt", "r") as f:
+  requires = f.readlines()
+
+with open("README.md", "r") as f:
+  long_description = f.read()
+
 
 setup(
   name='flask-protorpc',
@@ -21,22 +23,18 @@ setup(
   url='http://github.com/gregorynicholas/flask-protorpc',
   license='MIT',
   author='gregorynicholas',
-  description='An extremely thin Flask Extension to build remote clients.',
-  long_description=__doc__,
+  author_email='gn@gregorynicholas.com',
+  description=__doc__,
+  long_description=long_description,
   py_modules=[
     'flask_protorpc',
     'flask_protorpc_tests',
     'testutils',
   ],
-  # packages=['flaskext'],
-  # namespace_packages=['flaskext'],
   zip_safe=False,
   platforms='any',
-  install_requires=[
-    'flask==0.9',
-    'google-protorpc==1.0.0'
-  ],
-  dependency_links = [
+  install_requires=requires,
+  dependency_links=[
     'https://github.com/gregorynicholas/google-protorpc/tarball/master',
   ],
   test_suite='flask_protorpc_tests',
