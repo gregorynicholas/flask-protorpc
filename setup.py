@@ -33,8 +33,8 @@ setup(
   zip_safe=False,
   platforms='any',
   install_requires=[
-    'flask',
-    'google-protorpc'
+    'flask==0.9',
+    'google-protorpc==1.0.0'
   ],
   dependency_links = [
     'https://github.com/gregorynicholas/google-protorpc/tarball/master',
