@@ -1,0 +1,2 @@
+flask==0.9
+git+https://github.com/gregorynicholas/google-protorpc/tarball/master#egg=google-protorpc==1.0.0
