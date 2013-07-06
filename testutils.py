@@ -3,6 +3,8 @@ from flask_protorpc import proto
 from flask_protorpc import RemoteResponse
 from functools import wraps
 
+__all__ = ['RpcMixin', 'remote']
+
 class RpcMixin:
   def options(self, svc, *args, **kw):
     """Like open but method is enforced to OPTIONS. This is mainly to extend
@@ -13,6 +15,7 @@ class RpcMixin:
 
   def send_rpc(self, svc, path, data, **kw):
     '''
+      :param svc:
       :param path:
           the path of the request.  In the WSGI environment this will end up as
           `PATH_INFO`.  If the `query_string` is not defined and there is a
@@ -35,6 +38,10 @@ class RpcMixin:
     return response, loads(response.data)
 
 def remote(request_msg, response_msg):
+  '''
+    :param request_msg:
+    :param response_msg:
+  '''
   def wrapper(f):
     @wraps(f)
     def decorated(self, msg, *args, **kw):
